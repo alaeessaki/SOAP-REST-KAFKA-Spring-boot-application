@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ws.almerys.com/pec/modele/commun" xmlns:commun="http://ws.almerys.com/pec/modele/commun" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			Ce schéma XML définit le format des échanges entre Almerys
+			et un OMC dans le cadre de l'automatisation des devis, des
+			prises en charge (PEC), et annulation des PECs.
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:complexType name="IndividuDetail">
+		<xsd:annotation>
+			<xsd:documentation>Description des informations d'un individu (bénéficiaire, assuré...)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="NNI">
+				<xsd:annotation>
+					<xsd:documentation>Numéro national d'identification</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="13"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="cleNNI" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Clé de vérification du NNI</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="nom">
+				<xsd:annotation>
+					<xsd:documentation>Nom de l'individu</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="prenom">
+				<xsd:annotation>
+					<xsd:documentation>Prénom de l'individu</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="dateNaissance">
+				<xsd:annotation>
+					<xsd:documentation>Date de naissance de l'individu</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="8"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="rangNaissance">
+				<xsd:annotation>
+					<xsd:documentation>Rang gémélaire de naissance de l'individu</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:totalDigits value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="qualite" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Qualité</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="idIndividu" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Id de l'individu chez l'OMC</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="numeroContrat" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Numéro de contrat de l'individu chez l'OMC</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InformationsRoDetail">
+		<xsd:annotation>
+			<xsd:documentation>Informations sur le régime obligatoire</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="codeGrandRegime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Code grand régime</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="codeRegimeParticulier" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Code régime particulier</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InformationsRoPrestationDetail">
+		<xsd:annotation>
+			<xsd:documentation>Informations RO d'une prestation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="puRo" type="commun:MontantType">
+				<xsd:annotation>
+					<xsd:documentation>Prix unitaire RO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="coefficientRo" type="commun:CoefficientRoType">
+				<xsd:annotation>
+					<xsd:documentation>Coefficient RO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="baseRo" type="commun:MontantType">
+				<xsd:annotation>
+					<xsd:documentation>Base de remboursement RO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="tauxRo" type="commun:TauxRoType">
+				<xsd:annotation>
+					<xsd:documentation>Taux RO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="montantRo" type="commun:MontantType">
+				<xsd:annotation>
+					<xsd:documentation>Montant RO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="NumOmcType">
+		<xsd:annotation>
+			<xsd:documentation>Numéro de devis/pec généré par un OMC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="40"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NumAlmType">
+		<xsd:annotation>
+			<xsd:documentation>N° de devis/pec généré par Almerys (maxlength actuellement utilisé à 5 mais passera à 18)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="18"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateType">
+		<xsd:annotation>
+			<xsd:documentation>Date</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MontantType">
+		<xsd:annotation>
+			<xsd:documentation>Montant</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="7"/>
+			<xsd:fractionDigits value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CoefficientRoType">
+		<xsd:annotation>
+			<xsd:documentation>Valeur du coefficient SS</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="5"/>
+			<xsd:fractionDigits value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TauxRoType">
+		<xsd:annotation>
+			<xsd:documentation>Valeur du taux SS</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="5"/>
+			<xsd:fractionDigits value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EmetteurType">
+		<xsd:annotation>
+			<xsd:documentation>Emetteur de la requête</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EnvironnementType">
+		<xsd:annotation>
+			<xsd:documentation>Environnement d'exécution</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OmcType">
+		<xsd:annotation>
+			<xsd:documentation>Nom de l'OMC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="VersionType">
+		<xsd:annotation>
+			<xsd:documentation>Version du wsdl</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="5"/>
+			<xsd:maxLength value="11"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MesureType">
+		<xsd:annotation>
+			<xsd:documentation>Horodatage</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="CodeActeType">
+		<xsd:annotation>
+			<xsd:documentation>Code Acte</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CoteType">
+		<xsd:annotation>
+			<xsd:documentation>Coté</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="LppType">
+		<xsd:annotation>
+			<xsd:documentation>Description d'un code LPP</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="7"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TipsType">
+		<xsd:annotation>
+			<xsd:documentation>Description d'un code TIPS</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="13"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
